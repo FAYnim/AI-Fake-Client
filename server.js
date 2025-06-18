@@ -1,29 +1,47 @@
-// 1. Import modul menggunakan sintaks ES Module
+// server.js (Sudah diintegrasikan)
+
 import express from 'express';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { generateFakeClientData } from './core.js'; // <-- Import fungsi dari core.js
 
-// 2. Mendefinisikan __dirname secara manual untuk ES Module
-// Ini adalah pola standar untuk mendapatkan path direktori di ES Module
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// 3. Inisialisasi aplikasi Express
 const app = express();
-
-// 4. Tentukan port untuk server
 const PORT = process.env.PORT || 3000;
 
-// 5. Set middleware untuk melayani file statis dari folder 'public'
+// Middleware untuk membaca JSON dan melayani file statis
+app.use(express.json()); // <-- PENTING untuk membaca req.body
 app.use(express.static(path.join(__dirname, 'public')));
 
-// (Opsional) Rute fallback untuk SPA (Single Page Application)
-// Mengarahkan semua permintaan yang tidak cocok kembali ke index.html
+// API Endpoint untuk men-generate data
+app.post('/api/generate', async (req, res) => {
+  try {
+    // Ambil data dari body request yang dikirim frontend
+    const { nama, keahlian } = req.body;
+
+    if (!nama || !keahlian) {
+      return res.status(400).json({ error: 'Nama dan keahlian harus diisi.' });
+    }
+
+    // Panggil fungsi utama dari core.js dan tunggu hasilnya
+    const result = await generateFakeClientData({ name: nama, skills: keahlian });
+
+    // Kirim hasil kembali ke frontend sebagai JSON
+    res.json(result);
+
+  } catch (error) {
+    console.error('Error di endpoint /api/generate:', error);
+    res.status(500).json({ error: 'Terjadi kesalahan di server saat memproses permintaan.' });
+  }
+});
+
+// Rute fallback untuk mengarahkan semua permintaan GET lain ke index.html
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// 6. Jalankan server dan listen di port yang telah ditentukan
 app.listen(PORT, () => {
   console.log(`Server (ESM) berjalan lancar di http://localhost:${PORT}`);
   console.log('Tekan Ctrl + C untuk menghentikan server.');

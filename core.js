@@ -1,88 +1,82 @@
+// core.js (Sudah dimodifikasi menjadi modul)
+
 import fs from 'fs/promises';
 import dotenv from 'dotenv';
 import fetch from 'node-fetch';
 dotenv.config();
 
-const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + process.env.GEMINI_API_KEY;
+const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + process.env.GEMINI_API_KEY;
 
-async function callGemini(prompt, stage = '') {
-  console.log(`⏳ [${stage}] Mengirim permintaan ke Gemini API...`);
-  const res = await fetch(GEMINI_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      contents: [{ parts: [{ text: prompt }] }]
-    })
-  });
+// Fungsi ini akan dipanggil oleh server.js
+export async function generateFakeClientData(userData) {
+  console.log('📌 Memulai proses AI Fake Client...');
+  const { name, skills } = userData;
 
-  if (!res.ok) {
-    console.error(`❌ [${stage}] Gagal menerima respon. Status: ${res.status}`);
-    const errorText = await res.text();
-    console.error(errorText);
-    process.exit(1);
-  }
-
-  const data = await res.json();
-  const output = data.candidates?.[0]?.content?.parts?.[0]?.text || '[No Response]';
-  console.log(`✅ [${stage}] Respon diterima.\n`);
-  return output;
-}
-
-async function loadUserProfile(path = './users/default.json') {
-  console.log('📂 Membaca profil pengguna...');
-  const raw = await fs.readFile(path, 'utf8');
-  const profile = JSON.parse(raw);
-  return {
-    name: profile.name || 'Unknown User',
-    bio: profile.bio || '',
-    skills: (profile.skills || []).join(', ')
-  };
-}
-
-async function main() {
-  console.log('📌 Mulai proses Prompt Chaining...\n');
-
-  // Load user profile
-  const user = await loadUserProfile();
-  console.log(`👤 Pengguna: ${user.name}`);
-  console.log(`🧠 Bio: ${user.bio}`);
-  console.log(`🛠️ Skill: ${user.skills}\n`);
-
-  // Step 1: Generate Fake Project
-  console.log('--- LANGKAH 1: Membuat Fake Project ---');
+  // --- LANGKAH 1: Membuat Fake Project ---
+  console.log('--- Step 1: Generating Fake Project ---');
   const rawPrompt = await fs.readFile('./prompts/fakeProjectPrompt.txt', 'utf8');
   const projectPrompt = rawPrompt
-    .replace('{{USER_NAME}}', user.name)
-    .replace('{{USER_BIO}}', user.bio)
-    .replace('{{USER_SKILLS}}', user.skills);
+    .replace('{{USER_NAME}}', name)
+    .replace('{{USER_BIO}}', `A professional with skills in ${skills}.`) // Bio sederhana dari skill
+    .replace('{{USER_SKILLS}}', skills);
 
   const projectRaw = await callGemini(projectPrompt, 'Generate Fake Project');
   const titleMatch = projectRaw.match(/Project Title:\s*(.+)/i);
-  const descMatch = projectRaw.match(/Project Description:\s*(.+)/i);
-  const title = titleMatch?.[1]?.trim() || 'Unknown Title';
-  const desc = descMatch?.[1]?.trim() || 'No description found';
+  const descMatch = projectRaw.match(/Project Description:\s*(.+)/s); // 's' flag for multiline
+  const title = titleMatch?.[1]?.trim() || 'Unknown Project Title';
+  const desc = descMatch?.[1]?.trim() || 'No description provided.';
+  
+  const projectBrief = `Project Title: ${title}\n\nProject Description:\n${desc}`;
+  console.log(`📄 Project Brief Generated.`);
 
-  console.log(`📄 Judul Proyek: ${title}`);
-  console.log(`📃 Deskripsi: ${desc}\n`);
-
-  // Step 2: Generate Fake Client Message
-  console.log('--- LANGKAH 2: Membuat Pesan Klien Palsu ---');
+  // --- LANGKAH 2: Membuat Pesan Klien Palsu ---
+  console.log('--- Step 2: Generating Fake Client Message ---');
   const clientPromptTemplate = await fs.readFile('./prompts/fakeClientPrompt.txt', 'utf8');
   const finalClientPrompt = clientPromptTemplate
     .replace('{{PROJECT_TITLE}}', title)
     .replace('{{PROJECT_DESC}}', desc);
 
   const clientMessage = await callGemini(finalClientPrompt, 'Generate Fake Client Message');
-  console.log(`📬 Pesan Klien:\n${clientMessage}\n`);
+  console.log(`📬 Client Message Generated.`);
 
-  // Step 3: Simpan ke File Output
-  console.log('--- LANGKAH 3: Menyimpan ke File ---');
-  const output = `# Fake Project: ${title}\n\n## 🧠 Description:\n${desc}\n\n## 💬 Fake Client Message:\n${clientMessage}`;
-  const filename = `output/result_${Date.now()}.md`;
-  await fs.writeFile(filename, output);
-  console.log(`✅ Selesai! File disimpan di: ${filename}\n`);
+  console.log('✅ Proses Selesai!');
+  
+  // Kembalikan hasilnya, bukan menyimpannya ke file
+  return { projectBrief, clientMessage };
 }
 
-main().catch(err => {
-  console.error('❌ Terjadi error fatal:', err);
-});
+// Helper function untuk memanggil Gemini API
+async function callGemini(prompt, stage = '') {
+  console.log(`⏳ [${stage}] Mengirim permintaan ke Gemini API...`);
+  try {
+    const res = await fetch(GEMINI_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }],
+        // Konfigurasi tambahan untuk hasil yang lebih baik
+        generationConfig: {
+            temperature: 0.8,
+            topK: 40,
+            topP: 0.95,
+        }
+      })
+    });
+
+    if (!res.ok) {
+      const errorText = await res.text();
+      console.error(`❌ [${stage}] Gagal menerima respon. Status: ${res.status}`);
+      console.error(errorText);
+      // Lemparkan error agar bisa ditangkap oleh server.js
+      throw new Error(`Gemini API error (Status: ${res.status}): ${errorText}`);
+    }
+
+    const data = await res.json();
+    const output = data.candidates?.[0]?.content?.parts?.[0]?.text || '[No Response from AI]';
+    console.log(`✅ [${stage}] Respon diterima.`);
+    return output;
+  } catch (error) {
+     console.error(`❌ [${stage}] Error saat fetch ke Gemini:`, error);
+     throw error; // Lemparkan lagi agar bisa ditangkap di level atas
+  }
+}
