@@ -1,96 +1,89 @@
-# 🎭 AI Fake Client 🤖💬
+# AI Fake Client
 
-AI Fake Client adalah aplikasi web berbasis Node.js dan Express yang memanfaatkan layanan AI (Gemini API) untuk secara otomatis menghasilkan _project brief_ dan simulasi dialog klien palsu. Cocok digunakan untuk latihan komunikasi, simulasi project, atau keperluan edukasi lainnya.
+AI Fake Client adalah aplikasi web berbasis Node.js dan Express yang menggunakan Gemini API untuk membuat project brief dan simulasi dialog klien palsu secara otomatis. Aplikasi ini cocok untuk latihan komunikasi, simulasi project, keperluan edukasi, maupun testing portofolio.
 
-## ✨ Fitur Utama
+---
 
-- **📋 Generate Project Brief**: AI akan membuat deskripsi singkat project fiktif berdasarkan nama dan keahlian pengguna.
-- **💬 Generate Dialog Client**: AI menghasilkan contoh pesan atau permintaan dari klien palsu terkait project tersebut.
-- **🎨 Antarmuka Modern**: Tersedia dashboard web responsif dan nyaman digunakan.
-- **📎 Fitur Copy Cepat**: Hasil dapat disalin ke clipboard dengan satu klik.
+## Cara Instalasi & Menjalankan
 
-## ⚙️ Cara Kerja
+Ikuti langkah-langkah di bawah ini untuk menginstall dan menjalankan AI Fake Client di komputer Anda.
 
-1. 👤 Pengguna mengisi nama dan keahlian pada form di dashboard
-2. 📤 Sistem mengirim data ke backend (`/api/generate`)
-3. ⚙️ Backend memproses data dengan membaca template prompt dari folder `prompts/` lalu meminta respons ke Gemini API
-4. 📄 Hasil berupa _project brief_ dan _client message_ dikirim kembali ke frontend dan ditampilkan pada dashboard
+### 1. Clone Repository
 
-## 📂 Struktur Direktori
-```
-AI-Fake-Client/
-├── 🏗️ core.js              # Logika utama pembuatan project & dialog klien palsu
-├── 🌐 server.js            # Server Express, endpoint API & serving static files
-├── 📁 public/
-│   └── 🖥️ index.html       # Dashboard utama (frontend)
-├── 📝 prompts/
-│   ├── 📄 fakeProjectPrompt.txt   # Template prompt untuk project
-│   └── 💌 fakeClientPrompt.txt    # Template prompt untuk dialog klien
-├── 🔒 .env                 # Tempat menyimpan API KEY Gemini (tidak diupload)
-└── ...
+Clone repository ini ke komputer Anda (pastikan sudah login GitHub dan punya akses ke repo privat):
+
+```bash
+git clone https://github.com/FAYnim/AI-Fake-Client.git
+cd AI-Fake-Client
 ```
 
+### 2. Install Dependency Package
 
-## 📄 Penjelasan File Utama
+Pastikan Node.js (recommended v18 ke atas) sudah terpasang.  
+Install seluruh package yang dibutuhkan dengan perintah:
 
-- **🌐 server.js**  
-  🚀 Menangani request dari frontend. Endpoint utama `/api/generate` menerima data user, memanggil fungsi AI, dan mengirim hasil ke frontend.
+```bash
+npm install
+```
 
-- **🏗️ core.js**  
-  🔧 Berisi fungsi `generateFakeClientData` yang:  
-  - 📖 Membaca template prompt dari folder `prompts/`
-  - 🤖 Mengirim permintaan ke Gemini API (menggunakan API Key dari `.env`)
-  - 📤 Mengembalikan hasil simulasi project dan dialog klien palsu
+### 3. Konfigurasi API Key Gemini
 
-- **🖥️ public/index.html**  
-  🎨 Halaman dashboard antarmuka pengguna. Terdapat form input, tombol generate, area hasil, serta tombol copy.
+Buat file `.env` pada root folder, lalu isi seperti berikut (ganti dengan API Key milik Anda):
 
-- **📝 prompts/**
-  - `📄 fakeProjectPrompt.txt` — Template prompt untuk membangkitkan ide project.
-  - `💌 fakeClientPrompt.txt` — Template prompt untuk membangkitkan pesan klien palsu berdasarkan project.
+```
+GEMINI_API_KEY=masukkan_api_key_gemini_anda
+```
 
-## 📋 Prasyarat
+> **Catatan:**  
+> - File `.env` ini jangan dishare ke publik.
+> - Anda bisa mendapatkan API Key Gemini dari konsol Google AI Studio.
 
-- ⚙️ Node.js (disarankan versi 18+)
-- 📦 NPM
-- 🔑 API Key Gemini (Google Generative Language)
+### 4. Jalankan Server
 
-## 🚀 Instalasi & Menjalankan
+Untuk menjalankan server, gunakan:
 
-1. **📥 Clone repository ini** (wajib login, repo privat):
+```bash
+node server.js
+```
 
-    ```bash
-    git clone https://github.com/FAYnim/AI-Fake-Client.git
-    cd AI-Fake-Client
-    ```
+Secara default, server akan berjalan di `http://localhost:3000`.
 
-2. **📦 Install dependencies**:
+### 5. Akses Dashboard
 
-    ```bash
-    npm install
-    ```
+Buka browser, lalu akses:
 
-3. **🔒 Buat file `.env`** dan isi:
+```
+http://localhost:3000
+```
 
-    ```
-    GEMINI_API_KEY=apikey_anda
-    ```
+Isi nama dan keahlian Anda, lalu klik **Generate** untuk mendapatkan hasil project brief dan contoh dialog klien palsu.
 
-4. **🚀 Jalankan server**:
+---
 
-    ```bash
-    node server.js
-    ```
+## Struktur File Penting
 
-5. **🌐 Akses aplikasi** di [http://localhost:3000](http://localhost:3000) melalui browser.
+- `server.js` — Server Express, endpoint API dan serving static files.
+- `core.js` — Logika utama generate project & client message (memanggil Gemini API).
+- `public/index.html` — Dashboard frontend (form input, hasil, tombol copy).
+- `prompts/fakeProjectPrompt.txt` — Template prompt untuk ide project.
+- `prompts/fakeClientPrompt.txt` — Template prompt untuk dialog klien.
 
-## ⚠️ Catatan Penting
+---
 
-- 🔒 Jangan bagikan API Key Gemini Anda ke publik.
-- 📌 File `.env` tidak diupload ke repository (masuk gitignore).
-- ✏️ Template prompt dapat dimodifikasi pada folder `prompts/` sesuai kebutuhan.
+## Troubleshooting
 
-## 👨‍💻 Kredit
+- **Error "GEMINI_API_KEY not found"**  
+  ⇒ Pastikan file `.env` sudah dibuat dan berisi API Key yang benar.
+
+- **Tidak dapat mengakses `localhost:3000`**  
+  ⇒ Pastikan server sudah dijalankan dan tidak ada error di terminal.
+
+- **Result kosong atau error**  
+  ⇒ Cek koneksi internet, pastikan API Key Gemini masih aktif dan valid.
+
+---
+
+## Kredit
 
 Dibuat oleh [Faris AY](https://instagram.com/faris.a.y)  
-🎨 Inspirasi, desain, dan pengembangan: 2025.
+2025
