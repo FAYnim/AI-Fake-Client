@@ -17,8 +17,9 @@ export async function generateFakeClientData(userData) {
   const rawPrompt = await fs.readFile('./prompts/fakeProjectPrompt.txt', 'utf8');
   const projectPrompt = rawPrompt
     .replace('{{USER_NAME}}', name)
-    .replace('{{USER_BIO}}', `A professional with skills in ${skills}.`) // Bio sederhana dari skill
-    .replace('{{USER_SKILLS}}', skills);
+    .replace('{{USER_BIO}}', bio)
+    .replace('{{USER_SKILLS}}', skills)
+    .replace('{{USER_PREFERENCE}}', preference);
   console.log({projectPrompt});
 
   const projectRaw = await callGemini(projectPrompt, 'Generate Fake Project');

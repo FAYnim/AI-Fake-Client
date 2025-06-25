@@ -4,6 +4,7 @@ The user's profile:
 - Name: {{USER_NAME}}
 - Background: {{USER_BIO}}
 - Skills: {{USER_SKILLS}}
+- Preference: {{USER_PREFERENCE}}
 
 Your goal:
 Generate a portfolio-worthy fake project that fits the user's profile, skills, and background. The project must:
