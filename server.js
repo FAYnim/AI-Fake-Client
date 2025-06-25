@@ -19,14 +19,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.post('/api/generate', async (req, res) => {
   try {
     // Ambil data dari body request yang dikirim frontend
-    const { nama, keahlian } = req.body;
+    const { nama, bio, keahlian, preferensi } = req.body;
 
-    if (!nama || !keahlian) {
-      return res.status(400).json({ error: 'Nama dan keahlian harus diisi.' });
+    if (!nama || !bio || !keahlian || !preferensi) {
+      return res.status(400).json({ error: 'Semua data harus diisi.' });
     }
 
     // Panggil fungsi utama dari core.js dan tunggu hasilnya
-    const result = await generateFakeClientData({ name: nama, skills: keahlian });
+    const result = await generateFakeClientData({ name: nama, bio: bio, skills: keahlian, preference: preferensi});
 
     // Kirim hasil kembali ke frontend sebagai JSON
     res.json(result);

@@ -10,7 +10,7 @@ const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemi
 // Fungsi ini akan dipanggil oleh server.js
 export async function generateFakeClientData(userData) {
   console.log('📌 Memulai proses AI Fake Client...');
-  const { name, skills } = userData;
+  const { name, bio, skills, preference } = userData;
 
   // --- LANGKAH 1: Membuat Fake Project ---
   console.log('--- Step 1: Generating Fake Project ---');
@@ -19,6 +19,7 @@ export async function generateFakeClientData(userData) {
     .replace('{{USER_NAME}}', name)
     .replace('{{USER_BIO}}', `A professional with skills in ${skills}.`) // Bio sederhana dari skill
     .replace('{{USER_SKILLS}}', skills);
+  console.log({projectPrompt});
 
   const projectRaw = await callGemini(projectPrompt, 'Generate Fake Project');
   const titleMatch = projectRaw.match(/Project Title:\s*(.+)/i);
