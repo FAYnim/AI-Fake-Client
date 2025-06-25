@@ -22,32 +22,22 @@ Instructions:
 
 Output Format:
 Project Title: [Concise, catchy title reflecting the solution]
-Project Type: [Web App/Mobile App/AI Tool/Chrome Extension/etc.]
-Project Style: [Minimalist/Corporate/Playful/Dark Mode/etc.]
-Industry: [Healthcare/E-commerce/Education/Fintech/etc.]
-Tech Stack/Tools: [Primary technologies used, e.g., React, Python, Figma, LLMs]
+
 Project Description: [<120 words, realistic backstory + client problem + solution]  
+
 Project Goals:  
 - Problem Solved: [Specific pain point, e.g., "Eliminate manual order tracking"]  
 - Success Metrics: [Quantifiable outcome, e.g., "Reduce customer wait time by 70%"]  
 - Unique Value: [What sets it apart, e.g., "First no-code solution for small bakeries"]
+
 Optional Extras (for portfolio polish):  
 - Color Palette: [e.g., "Pastel pink/cream (brand-aligned)"]  
 - Target Platform: [e.g., "Mobile-first (80% users order via phone)"]  
 - Hypothetical Client: [e.g., "For 'SweetCake Bakery' (fake client)"]  
----
 
 Example Output:
 ## Example Output 1
 Project Title: AutoMenu – AI-Generated Dynamic Restaurant Menus  
-
-Project Type: Web App + AI Tool  
-
-Project Style: Clean & Food-Friendly  
-
-Industry: Hospitality/F&B  
-
-Tech Stack: Next.js, OpenAI GPT-4, Firebase  
 
 Project Description:  
 "A vegan cafe spends 3 hours daily updating menus due to seasonal ingredient changes. AutoMenu syncs with inventory data to auto-generate dish descriptions and allergen labels, cutting menu prep time to 15 minutes with 98% accuracy."  
@@ -63,18 +53,6 @@ Extras:
 
 ## Example Output 2
 Project Title: EventSync – AI-Powered Networking Assistant for Conferences  
-
-Project Type: Mobile App (iOS/Android) + AI Backend  
-
-Project Style: Professional/Minimalist with Vibrant Accents  
-
-Industry: Tech Conferences/Professional Networking  
-
-Tech Stack/Tools:  
-- Flutter (Cross-platform)  
-- Firebase (Auth/DB)  
-- OpenAI GPT-4 (Natural Language Processing)  
-- Google Vision API (Business Card Scanning)  
 
 Project Description:  
 "Attendees at tech conferences like Web Summit waste 30% of their time manually exchanging contacts and forgetting key details. EventSync uses AI to scan business cards, auto-log conversations, and suggest follow-ups post-event. Integrated with LinkedIn for seamless networking."  
