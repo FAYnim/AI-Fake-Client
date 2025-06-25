@@ -14,16 +14,82 @@ Generate a portfolio-worthy fake project that fits the user's profile, skills, a
 - Be suitable to showcase on GitHub, Threads, Instagram, or LinkedIn
 
 Instructions:
+- Output must be in Indonesia
 - Keep the format exactly as instructed below
 - Be original and professional
 - Avoid generic templates or copy-paste feel
+- Output must be normal teks not markdown style
 
 Output Format:
-Project Title: [concise title of the fake project]  
-Project Description: [detailed yet realistic project description, max 120 words]
-
+Project Title: [Concise, catchy title reflecting the solution]
+Project Type: [Web App/Mobile App/AI Tool/Chrome Extension/etc.]
+Project Style: [Minimalist/Corporate/Playful/Dark Mode/etc.]
+Industry: [Healthcare/E-commerce/Education/Fintech/etc.]
+Tech Stack/Tools: [Primary technologies used, e.g., React, Python, Figma, LLMs]
+Project Description: [<120 words, realistic backstory + client problem + solution]  
+Project Goals:  
+- Problem Solved: [Specific pain point, e.g., "Eliminate manual order tracking"]  
+- Success Metrics: [Quantifiable outcome, e.g., "Reduce customer wait time by 70%"]  
+- Unique Value: [What sets it apart, e.g., "First no-code solution for small bakeries"]
+Optional Extras (for portfolio polish):  
+- Color Palette: [e.g., "Pastel pink/cream (brand-aligned)"]  
+- Target Platform: [e.g., "Mobile-first (80% users order via phone)"]  
+- Hypothetical Client: [e.g., "For 'SweetCake Bakery' (fake client)"]  
 ---
 
 Example Output:
-Project Title: AutoPortfolio - AI-Powered Instagram Content Generator  
-Project Description: A Node.js-based CLI tool that automatically generates Instagram carousel content for tech creators based on their skillset and posting trends. It integrates with OpenAI’s GPT API and uses a template system to format the result into Canva-ready designs. The project showcases automation, content strategy, and AI integration—built as if requested by a creator-focused digital agency for internal use.
+## Example Output 1
+Project Title: AutoMenu – AI-Generated Dynamic Restaurant Menus  
+
+Project Type: Web App + AI Tool  
+
+Project Style: Clean & Food-Friendly  
+
+Industry: Hospitality/F&B  
+
+Tech Stack: Next.js, OpenAI GPT-4, Firebase  
+
+Project Description:  
+"A vegan cafe spends 3 hours daily updating menus due to seasonal ingredient changes. AutoMenu syncs with inventory data to auto-generate dish descriptions and allergen labels, cutting menu prep time to 15 minutes with 98% accuracy."  
+
+Project Goals:  
+- Problem Solved: Manual menu updates waste staff time.  
+- Success Metrics: Reduce menu update time from 3h → 15min.  
+- Unique Value: Real-time ingredient substitution alerts.  
+
+Extras:  
+- Color Palette: Sage green + terracotta (organic vibe).  
+- Client: "GreenBowl Cafe" (hypothetical). 
+
+## Example Output 2
+Project Title: EventSync – AI-Powered Networking Assistant for Conferences  
+
+Project Type: Mobile App (iOS/Android) + AI Backend  
+
+Project Style: Professional/Minimalist with Vibrant Accents  
+
+Industry: Tech Conferences/Professional Networking  
+
+Tech Stack/Tools:  
+- Flutter (Cross-platform)  
+- Firebase (Auth/DB)  
+- OpenAI GPT-4 (Natural Language Processing)  
+- Google Vision API (Business Card Scanning)  
+
+Project Description:  
+"Attendees at tech conferences like Web Summit waste 30% of their time manually exchanging contacts and forgetting key details. EventSync uses AI to scan business cards, auto-log conversations, and suggest follow-ups post-event. Integrated with LinkedIn for seamless networking."  
+
+Project Goals:  
+- Problem Solved: Eliminate manual note-taking and lost connections.  
+- Success Metrics:  
+  - Reduce contact exchange time from 5 mins/person → 30 seconds.  
+  - Increase post-event follow-ups by 40%.  
+- Unique Value:  
+  - First app to combine real-time conversation logging + LinkedIn sync.  
+  - Privacy-focused (local processing for sensitive chats).  
+
+Optional Extras:  
+- Color Palette: Navy blue (#2A3B8F) + electric blue (#00C6FB) (trust + tech vibe).  
+- Target Platform: Mobile-first (conference attendees are on-the-go).  
+- Hypothetical Client: "DevConf 2024" (fictional tech conference).  
+- Fake Testimonial: "EventSync saved our team 12+ hours at DevConf!" – Sarah Lee, Startup Founder
