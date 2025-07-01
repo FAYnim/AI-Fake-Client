@@ -1,89 +1,71 @@
 # AI Fake Client
 
-AI Fake Client adalah aplikasi web berbasis Node.js dan Express yang menggunakan Gemini API untuk membuat project brief dan simulasi dialog klien palsu secara otomatis. Aplikasi ini cocok untuk latihan komunikasi, simulasi project, keperluan edukasi, maupun testing portofolio.
+AI Fake Client adalah aplikasi web yang menghasilkan project brief dan simulasi dialog klien palsu secara otomatis menggunakan AI. Aplikasi ini sangat cocok untuk para freelancer, developer, atau desainer yang ingin berlatih berkomunikasi dengan klien, membuat studi kasus untuk portofolio, atau sekadar untuk keperluan edukasi.
 
 ---
 
-## Cara Instalasi & Menjalankan
+## Instalasi
 
-Ikuti langkah-langkah di bawah ini untuk menginstall dan menjalankan AI Fake Client di komputer Anda.
+Untuk menjalankan aplikasi ini secara lokal, Anda memerlukan web server dengan dukungan PHP.
 
-### 1. Clone Repository
+1.  **Clone Repository**
 
-Clone repository ini ke komputer Anda (pastikan sudah login GitHub dan punya akses ke repo privat):
+    ```bash
+    git clone https://github.com/FAYnim/AI-Fake-Client.git
+    cd AI-Fake-Client
+    ```
 
-```bash
-git clone https://github.com/FAYnim/AI-Fake-Client.git
-cd AI-Fake-Client
-```
+2.  **Konfigurasi API Key**
 
-### 2. Install Dependency Package
+    Aplikasi ini membutuhkan API key dari Google AI Studio (Gemini).
 
-Pastikan Node.js (recommended v18 ke atas) sudah terpasang.  
-Install seluruh package yang dibutuhkan dengan perintah:
+    - Buka file `api.php`.
+    - Ganti placeholder `MASUKKAN_API_KEY_DISINI` dengan API key Anda.
 
-```bash
-npm install
-```
+    ```php
+    $apiKey = 'MASUKKAN_API_KEY_DISINI';
+    ```
 
-### 3. Konfigurasi API Key Gemini
+3.  **Jalankan Web Server**
 
-Buat file `.env` pada root folder, lalu isi seperti berikut (ganti dengan API Key milik Anda):
+    Anda bisa menggunakan server bawaan PHP untuk pengembangan:
 
-```
-GEMINI_API_KEY=masukkan_api_key_gemini_anda
-```
+    ```bash
+    php -S localhost:8000
+    ```
 
-> **Catatan:**  
-> - File `.env` ini jangan dishare ke publik.
-> - Anda bisa mendapatkan API Key Gemini dari konsol Google AI Studio.
-
-### 4. Jalankan Server
-
-Untuk menjalankan server, gunakan:
-
-```bash
-node server.js
-```
-
-Secara default, server akan berjalan di `http://localhost:3000`.
-
-### 5. Akses Dashboard
-
-Buka browser, lalu akses:
-
-```
-http://localhost:3000
-```
-
-Isi nama dan keahlian Anda, lalu klik **Generate** untuk mendapatkan hasil project brief dan contoh dialog klien palsu.
+    Aplikasi akan dapat diakses di `http://localhost:8000`.
 
 ---
 
-## Struktur File Penting
+## Tech Stack
 
-- `server.js` — Server Express, endpoint API dan serving static files.
-- `core.js` — Logika utama generate project & client message (memanggil Gemini API).
-- `public/index.html` — Dashboard frontend (form input, hasil, tombol copy).
-- `prompts/fakeProjectPrompt.txt` — Template prompt untuk ide project.
-- `prompts/fakeClientPrompt.txt` — Template prompt untuk dialog klien.
+-   **Frontend:** HTML, CSS, JavaScript
+-   **Backend:** PHP
+-   **AI:** Google Gemini API
+
+---
+
+## Struktur File
+
+-   `index.html`: Halaman utama aplikasi.
+-   `api.php`: Endpoint untuk berinteraksi dengan Gemini API.
+-   `assets/`: Direktori untuk file statis (CSS dan JavaScript).
+-   `data/`: Berisi data prompt dan konfigurasi pengguna.
+-   `src/`: Kode sumber PHP utama.
 
 ---
 
 ## Troubleshooting
 
-- **Error "GEMINI_API_KEY not found"**  
-  ⇒ Pastikan file `.env` sudah dibuat dan berisi API Key yang benar.
-
-- **Tidak dapat mengakses `localhost:3000`**  
-  ⇒ Pastikan server sudah dijalankan dan tidak ada error di terminal.
-
-- **Result kosong atau error**  
-  ⇒ Cek koneksi internet, pastikan API Key Gemini masih aktif dan valid.
+-   **Hasil tidak muncul:** Pastikan API key yang Anda masukkan di `api.php` sudah benar dan masih aktif.
+-   **Error 500:** Periksa log error pada web server Anda. Kemungkinan ada kesalahan pada kode PHP atau konfigurasi server.
 
 ---
 
 ## Kredit
 
-Dibuat oleh [Faris AY](https://instagram.com/faris.a.y)  
-2025
+Dibuat dengan ❤️ oleh **Faris AY**
+
+-   **Instagram:** [@faris.a.y](https://instagram.com/faris.a.y)
+-   **Threads:** [@faris.a.y](https://threads.net/@faris.a.y)

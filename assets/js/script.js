@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             // 2. Kirim request ke server
-            const response = await fetch('/api/generate', {
+            const response = await fetch('api.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
